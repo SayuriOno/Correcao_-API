@@ -47,13 +47,12 @@ void loop() {
  String pedirDadosPokemonAPIPorId (unsigned int idPokemon)
 (
   String resposta = " ";
-
-  enderecoAPI = enderecoAPI + idPokemon + "/";
-  Serial.printf("endereco a ser pesquisado: %S", enderecoAPI.c_str());
+  String enderecoPesquisado = enderecoAPI + idPokemon + "/";
+  Serial.printf("endereco a ser pesquisado: %S", enderecoPesquisado.c_str());
 
   HTTPClient textoJsonHTTP;
 
-  textoJsonHTTP.begin(enderecoAPI);//o begin inicia o objeto instanciado do tipo HTTP para pegar textos HTTP na internet.
+  textoJsonHTTP.begin(enderecoPesquisado);//o begin inicia o objeto instanciado do tipo HTTP para pegar textos HTTP na internet.
   
   int codigoHTTP = textoJsonHTTP.GET();// o GET acessa o endereco passando no pegin e baixa as informacoes, e retorna o codgo HTTP 
   //de status como 200 para ok e 404 para pagina nao encontrada.
