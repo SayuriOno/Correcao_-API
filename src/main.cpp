@@ -3,13 +3,16 @@
 #include <arduinoJson.h>
 #include <HTTPClient.h>
 
-//============PROTOTIPOS DAS FUNCOES================
+//!============PROTOTIPOS DAS FUNCOES================
 String pedirDadosPokemonAPIPorId (unsigned int idPokemon);
 void printPokemon(unsigned int idPokemon);
 const char* nomeRedeWifi="SENAI EDUCACIONAL";
 const char* senhaRedeWifi="info@134";
 String enderecoAPI="https://pokeapi.co/api/v2/pokemon/" //adicionar o numero do pokemon a ser pesquisado 
 
+
+
+//!======================================================
 void setup() {
   Serial.begin(115200);
   WiFi.begin(nomeRedeWifi, senhaRedeWifi);
@@ -31,13 +34,16 @@ void setup() {
 
 // esp crash decoder eh uma extensao que decodifica o erro no esp. 
 
+
+//!======================================================
 void loop() {
- unsigned int idPokemonAleatorio = random(1,1025);
+ unsigned int idPokemonAleatorio = random(1,1026);
  printPokemon(idPokemonAleatorio);
- delay(500);
+ delay(15000);
 }
 
 
+//!======================================================
  String pedirDadosPokemonAPIPorId (unsigned int idPokemon)
 (
   String resposta = " ";
@@ -65,6 +71,8 @@ if(codigoHTTP != 200)//clausula de guarda, como se fosse algo que trava.
 
 )
 
+
+//!======================================================
 void printPokemon(unsigned int idPokemon)
 {
 
