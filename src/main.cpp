@@ -41,7 +41,11 @@ String pedirDadosPokemonAPIPorId (unsigned int idPokemon)
   HTTPClient textoJsonHTTP;
   
   textoJsonHTTP.begin(enderecoAPI);
+
+  int codigoHTTP = textoJsonHTTP.GET();
+
   resposta = textoJsonHTTP.getString();
+  
   textoJsonHTTP.end();
 
   return resposta;
