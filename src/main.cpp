@@ -22,18 +22,35 @@ void setup() {
     delay(500);
   }
   Serial.printf("\n\rConectado\n\r");
+
   JsonDocument docPokemon;
-
-  Serial.println(ESP.getFreeHeap());
-  String JsonVindoDaApiPokemon = pedirDadosPokemonAPIPorId (25);
-  Serial.println(ESP.getFreeHeap());
-  DeserializationError codigoStatusJson = deserializeJson(docPokemon,JsonVindoDaApiPokemon);
-  Serial.println(ESP.getFreeHeap());
-
-  JsonVindoDaApiPokemon.end(); //desalocar memoria deste objeto pois eu nao vou usar mais.
-  Serial.println(ESP.getFreeHeap());
+  JsonDocument docFiltro;
+       docFiltro["name"] = true
+       docFiltro["id "] = true
+       docFiltro["abilities "] = true// se depois eu colocar [0] eu coloco so a primeira habilidade
+        // se eu colocar um [0] e depois [ability] e depois [name], ele vem so os dados especificos, nao tudo
+       docFiltro["forms"][0]["name"] = true
+       docFiltro["types"][0]["types"]["name"] = true
 
   
+  String JsonVindoDaApiPokemon = pedirDadosPokemonAPIPorId (25);
+  
+  DeserializationError codigoStatusJson = deserializeJson(docPokemon,JsonVindoDaApiPokemon,
+  DeserializationOption :: Filter(docFiltro));
+  String nomePokemon = docPokemon["name"];
+  unsigned int idPokemon = docPokemon["id"];
+
+  JsonArray habilidades = docPokemon["abilities"][0]["ability"]["name"];
+  JsonArray formasPossiveis = docPokemon ["forms"][0]["name"];
+  JsonArray tipoDoPokemon = docPokemon["types"][0]["types"]["name"];
+
+  Serial.printf("nome do pokemon: %s \n\r", nomePokemon.c_str());
+
+  JsonVindoDaApiPokemon.end(); //desalocar memoria deste objeto pois eu nao vou usar mais.
+
+  Serial.println(ESP.getFreeHeap());
+
+
   pedirDadosPokemonAPIPorId(25);
 }
 
