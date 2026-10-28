@@ -45,7 +45,14 @@ void setup() {
   JsonArray tipoDoPokemon = docPokemon["types"][0]["types"]["name"];
 
   Serial.printf("nome do pokemon: %s \n\r", nomePokemon.c_str());
+  Serial.printf( "id do pokemon: %03d \n\r",idPokemon );
 
+  Serial.print("habilidades:  ");
+  For( int i = 0; i < habilidades.size(); i++)
+  {
+  Serial.print(habilidades[i]);
+  Serial.print(i == (habilidades.size() - 1)? ".":",");
+  }
   JsonVindoDaApiPokemon.end(); //desalocar memoria deste objeto pois eu nao vou usar mais.
 
   Serial.println(ESP.getFreeHeap());
